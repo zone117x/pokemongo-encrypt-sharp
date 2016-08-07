@@ -1,5 +1,5 @@
-# pokemongo-hash-sharp
-Managed C# code for the Pokemon Go API request signature hash (port of "encrypt.c")
+# pokemongo-encryption-sharp
+Managed C# code for the Pokemon Go API request signature encryption (port of "encrypt.c")
 
 
 ________
@@ -22,10 +22,10 @@ byte[] iv = new byte[32];
 new Random().NextBytes(iv);
 
 // using managed lib
-byte[] output = PokemonGoHashSharp.Util.Hash(input, iv);
+byte[] output = PokemonGoEncryptSharp.Util.Encrypt(input, iv);
 
 // using native wrapper lib
-byte[] output = PokemonGoHashNative.Util.Hash(input, iv);
+byte[] output = PokemonGoEncryptNative.Util.Encrypt(input, iv);
 
 ```
 
@@ -34,13 +34,8 @@ _______
 ### Performance
 Results from running the test app
 ```
-Performing 3000 hashing operations with both native and managed functions...
+Performing 3000 encryption operations with both native and managed functions...
 native took 0.1281 ms per round, total: 384.36 ms
 managed took 2.478 ms per round, total: 7434.18 ms
 managed is 19.34 times slower
 ```
-
-_______
-
-#### Naming
-I named the functions `Util.Hash(...)` rather than `Util.Encrypt(...)` because it looks a lot more like a hashing function than an encryption function. Feel free to correct me. 

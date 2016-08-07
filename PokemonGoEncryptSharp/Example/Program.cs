@@ -11,7 +11,7 @@ namespace Example
       static void Main(string[] args)
       {
          Run(Encoding.UTF8.GetBytes("Sample input data.."));
-         Console.WriteLine("Enter input to hash...");
+         Console.WriteLine("Enter input to encrypt...");
 
          while(true)
          {
@@ -24,7 +24,7 @@ namespace Example
          byte[] iv = new byte[32];
          new Random().NextBytes(iv);
 
-         byte[] output = PokemonGoHashSharp.Util.Hash(input, iv);
+         byte[] output = PokemonGoEncryptSharp.Util.Encrypt(input, iv);
 
          string hex = BitConverter.ToString(output).Replace("-", "").ToLowerInvariant();
          Console.WriteLine("Output:");

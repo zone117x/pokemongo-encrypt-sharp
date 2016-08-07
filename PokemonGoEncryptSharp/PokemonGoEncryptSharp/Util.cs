@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PokemonGoHashSharp
+namespace PokemonGoEncryptSharp
 {
     public class Util
     {
 
-      public static byte[] Hash(byte[] input, byte[] iv)
+      public static byte[] Encrypt(byte[] input, byte[] iv)
       {
          var inputSize = input.Length;
          var ivSize = iv.Length;

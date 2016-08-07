@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PokemonGoHashNative
+namespace PokemonGoEncryptNative
 {
     public class Util
     {
@@ -16,7 +16,7 @@ namespace PokemonGoHashNative
       [DllImport("encrypt", CallingConvention = CallingConvention.Cdecl, EntryPoint = "encrypt")]
       static extern int native_encrypt(byte[] input, uint inputSize, byte[] iv, uint ivSize, byte[] output, ref uint outputSize);
 
-      public static byte[] Hash(byte[] input, byte[] iv)
+      public static byte[] Encrypt(byte[] input, byte[] iv)
       {
          byte[] output;
          int result;

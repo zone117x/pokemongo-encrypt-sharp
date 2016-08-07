@@ -8,8 +8,8 @@
     <ProjectGuid>{902B446C-0FED-4D82-A467-D9D8D454C110}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PokemonGoHashSharp</RootNamespace>
-    <AssemblyName>PokemonGoHashSharp</AssemblyName>
+    <RootNamespace>PokemonGoEncryptSharp</RootNamespace>
+    <AssemblyName>PokemonGoEncryptSharp</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

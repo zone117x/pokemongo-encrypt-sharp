@@ -35,7 +35,7 @@ namespace Tests
       static void PerfTest()
       {
          double rounds = 3000;
-         Console.WriteLine($"Performing {rounds} hashing operations with both native and managed functions...");
+         Console.WriteLine($"Performing {rounds} encryption operations with both native and managed functions...");
 
          var sw = new Stopwatch();
 
@@ -72,7 +72,7 @@ namespace Tests
          byte[] iv;
          GetSampleData(out input, out iv);
 
-         var output = PokemonGoHashNative.Util.Hash(input, iv);
+         var output = PokemonGoEncryptNative.Util.Encrypt(input, iv);
          return output;
       }
 
@@ -82,7 +82,7 @@ namespace Tests
          byte[] iv;
          GetSampleData(out input, out iv);
 
-         var output = PokemonGoHashSharp.Util.Hash(input, iv);
+         var output = PokemonGoEncryptSharp.Util.Encrypt(input, iv);
          return output;
       }
 
