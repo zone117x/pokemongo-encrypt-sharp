@@ -67,10 +67,7 @@ namespace PokemonGoEncryptSharp
             Buffer.BlockCopy(arr3, 0, output, offset, 256);
          }
 
-         // truncate output
-         var truncatedOutput = new byte[totalSize];
-         Buffer.BlockCopy(output, 0, truncatedOutput, 0, totalSize);
-         return truncatedOutput;
+         return output;
       }
 
       private static void sub_9E9D8(IList<byte> input, IList<byte> output)

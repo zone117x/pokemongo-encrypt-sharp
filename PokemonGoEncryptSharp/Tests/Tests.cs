@@ -27,6 +27,8 @@ namespace Tests
             throw new Exception($"Output length differences: native is {sampleOutputNative.Length}, managed is {sampleOutputManaged.Length}");
          }
 
+         Console.WriteLine("Success! Managed code produces same output as native");
+
          PerfTest();
 
          Console.ReadLine();
