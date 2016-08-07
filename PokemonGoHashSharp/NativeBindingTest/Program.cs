@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +26,42 @@ namespace NativeBindingTest
          {
             throw new Exception($"Output length differences: native is {sampleOutputNative.Length}, managed is {sampleOutputManaged.Length}");
          }
+
+         PerfTest();
+
+      }
+
+      static void PerfTest()
+      {
+         double rounds = 10000;
+         var sw = new Stopwatch();
+
+         sw.Start();
+         for (var i = 0; i < rounds; i++)
+         {
+            TestNative();
+         }
+         sw.Stop();
+         var nativeTook = sw.Elapsed;
+
+         sw.Restart();
+         for (var i = 0; i < rounds; i++)
+         {
+            TestManaged();
+         }
+         sw.Stop();
+         var managedTook = sw.Elapsed;
+
+         var avgNative = TimeSpan.FromTicks((long)(nativeTook.Ticks / rounds));
+         var avgManaged = TimeSpan.FromTicks((long)(managedTook.Ticks / rounds));
+
+         // 16x
+         var diffx = managedTook.TotalSeconds / nativeTook.TotalSeconds;
+
+         Console.WriteLine($"native took {avgNative.TotalMilliseconds} ms per round");
+         Console.WriteLine($"managed took {avgManaged.TotalMilliseconds} ms per round");
+         Console.WriteLine($"managed took {Math.Round(diffx, 2)} times the amount of time");
+         Console.WriteLine($"native {nativeTook.TotalSeconds} vs managed {managedTook.TotalSeconds}");
       }
 
       static byte[] TestNative()

@@ -21,7 +21,7 @@ namespace PokemonGoHashSharp
             throw new ArgumentException("ivSize must be 32 length");
          }
 
-         roundedSize = ivSize + (256 - (inputSize % 256));
+         roundedSize = inputSize + (256 - (inputSize % 256));
          totalSize = roundedSize + 32;
 
          for (int j = 0; j < 8; j++)
@@ -31,8 +31,8 @@ namespace PokemonGoHashSharp
                arr2[32 * j + i] = rotl8(iv[i], j); //rotate byte left
             }
          }
-
-         var output = new byte[ushort.MaxValue];
+         // totalsize 5152
+         var output = new byte[totalSize];
 
          // memcpy(output, iv, 32);
          Buffer.BlockCopy(iv, 0, output, 0, 32);

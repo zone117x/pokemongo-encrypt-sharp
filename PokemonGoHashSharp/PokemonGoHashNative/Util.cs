@@ -16,28 +16,32 @@ namespace PokemonGoHashNative
       [DllImport("encrypt", CallingConvention = CallingConvention.Cdecl, EntryPoint = "encrypt")]
       static extern int native_encrypt(byte[] input, uint inputSize, byte[] iv, uint ivSize, byte[] output, ref uint outputSize);
 
-
       public static byte[] Hash(byte[] input, byte[] iv)
       {
-         byte[] output = new byte[ushort.MaxValue];
-
+         byte[] output;
          int result;
-         int outputLength;
+         int resultOutputLength = 0;
 
          //32 bit
          if (IntPtr.Size == 4)
          {
-            var outL = (uint)output.Length;
-            result = native_encrypt(input, (uint)input.Length, iv, (uint)iv.Length, output, ref outL);
-            outputLength = (int)outL;
+            uint outputSize = 0;
+            native_encrypt(input, (uint)input.Length, iv, (uint)iv.Length, null, ref outputSize);
+            output = new byte[outputSize];
+            result = native_encrypt(input, (uint)input.Length, iv, (uint)iv.Length, output, ref outputSize);
+            resultOutputLength = (int)outputSize;
          }
+
          //64 bit
          else if (IntPtr.Size == 8)
          {
-            var outL = (ulong)output.Length;
-            result = native_encrypt_x64(input, (ulong)input.Length, iv, (ulong)iv.Length, output, ref outL);
-            outputLength = (int)outL;
+            ulong outputSize = 0;
+            native_encrypt_x64(input, (ulong)input.Length, iv, (ulong)iv.Length, null, ref outputSize);
+            output = new byte[outputSize];
+            result = native_encrypt_x64(input, (ulong)input.Length, iv, (ulong)iv.Length, output, ref outputSize);
+            resultOutputLength = (int)outputSize;
          }
+
          else throw new ApplicationException("wtf this running on?");
 
          if (result != 0)
@@ -45,9 +49,12 @@ namespace PokemonGoHashNative
             throw new ApplicationException($"Failed with result code {result}");
          }
 
-         var truncatedOutput = new byte[outputLength];
-         Buffer.BlockCopy(output, 0, truncatedOutput, 0, outputLength);
-         return truncatedOutput;
+         if (output.Length != resultOutputLength)
+         {
+            throw new ApplicationException($"Output size discrepancy: actual {output.Length} vs expected {resultOutputLength}");
+         }
+
+         return output;
       }
 
    }
