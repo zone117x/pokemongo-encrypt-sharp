@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Tests
 {
-   class Program
+   class Tests
    {
       static void Main(string[] args)
       {
@@ -29,12 +29,14 @@ namespace Tests
 
          PerfTest();
 
-         Console.Read();
+         Console.ReadLine();
       }
 
       static void PerfTest()
       {
          double rounds = 3000;
+         Console.WriteLine($"Performing {rounds} hashing operations with both native and managed functions...");
+
          var sw = new Stopwatch();
 
          sw.Start();
