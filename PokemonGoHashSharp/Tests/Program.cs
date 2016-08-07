@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NativeBindingTest
+namespace Tests
 {
    class Program
    {
@@ -29,11 +29,12 @@ namespace NativeBindingTest
 
          PerfTest();
 
+         Console.Read();
       }
 
       static void PerfTest()
       {
-         double rounds = 10000;
+         double rounds = 3000;
          var sw = new Stopwatch();
 
          sw.Start();
@@ -58,10 +59,9 @@ namespace NativeBindingTest
          // 16x
          var diffx = managedTook.TotalSeconds / nativeTook.TotalSeconds;
 
-         Console.WriteLine($"native took {avgNative.TotalMilliseconds} ms per round");
-         Console.WriteLine($"managed took {avgManaged.TotalMilliseconds} ms per round");
-         Console.WriteLine($"managed took {Math.Round(diffx, 2)} times the amount of time");
-         Console.WriteLine($"native {nativeTook.TotalSeconds} vs managed {managedTook.TotalSeconds}");
+         Console.WriteLine($"native took {Math.Round(avgNative.TotalMilliseconds, 4)} ms per round, total: {Math.Round(nativeTook.TotalMilliseconds, 2)} ms");
+         Console.WriteLine($"managed took {Math.Round(avgManaged.TotalMilliseconds, 4)} ms per round, total: {Math.Round(managedTook.TotalMilliseconds, 2)} ms");
+         Console.WriteLine($"managed is {Math.Round(diffx, 2)} times slower");
       }
 
       static byte[] TestNative()
