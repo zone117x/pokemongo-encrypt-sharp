@@ -29,6 +29,16 @@ byte[] output = PokemonGoHashNative.Util.Hash(input, iv);
 
 ```
 
+_______
+
+### Performance
+Results from running the test app
+```
+Performing 3000 hashing operations with both native and managed functions...
+native took 0.1281 ms per round, total: 384.36 ms
+managed took 2.478 ms per round, total: 7434.18 ms
+managed is 19.34 times slower
+```
 
 _______
 
