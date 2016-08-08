@@ -34,8 +34,9 @@ _______
 ### Performance
 Results from running the test app
 ```
+Success! Managed code produces same output as native
 Performing 3000 encryption operations with both native and managed functions...
-native took 0.1281 ms per round, total: 384.36 ms
-managed took 2.478 ms per round, total: 7434.18 ms
-managed is 19.34 times slower
+native took 0.1162 ms per round, total: 348.63 ms
+managed took 0.2669 ms per round, total: 800.9 ms
+managed is 2.3 times slower
 ```
