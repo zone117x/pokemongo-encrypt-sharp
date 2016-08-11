@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace PokemonGoEncryptSharp
 {
-    public class Util
-    {
+   public class Util
+   {
 
       public static byte[] Encrypt(byte[] input, byte[] iv)
       {
@@ -31,7 +31,7 @@ namespace PokemonGoEncryptSharp
                arr2[32 * j + i] = rotl8(iv[i], j); //rotate byte left
             }
          }
-         // totalsize 5152
+
          var output = new byte[totalSize];
 
          // memcpy(output, iv, 32);
@@ -40,14 +40,6 @@ namespace PokemonGoEncryptSharp
          // memcpy(output + 32, input, input_size);
          Buffer.BlockCopy(input, 0, output, 32, inputSize);
 
-         if (roundedSize > inputSize)
-         {
-            // memset(output + 32 + input_size, 0, roundedsize - input_size); //pad data with zeroes
-            for (var i = 32 + inputSize; i < roundedSize - inputSize; i++)
-            {
-               output[i] = 0;
-            }
-         }
          output[totalSize - 1] = (byte)(256 - (inputSize % 256));
 
          for (var offset = 32; offset < totalSize; offset += 256)

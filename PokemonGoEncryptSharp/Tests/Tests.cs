@@ -1,9 +1,16 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace Tests
 {
@@ -11,6 +18,8 @@ namespace Tests
    {
       static void Main(string[] args)
       {
+         RunStoredTestData();
+
          var sampleOutputNative = TestNative();
          var sampleOutputManaged = TestManaged();
 
@@ -32,6 +41,31 @@ namespace Tests
          PerfTest();
 
          Console.ReadLine();
+      }
+
+      static void RunStoredTestData()
+      {
+         var data = File.ReadAllText("test-data.json");
+         int index = 0;
+         var failedTests = new List<int>();
+         foreach (var entry in JsonConvert.DeserializeAnonymousType(data, new[] { new { iv = "", input = "", output = "" } }))
+         {
+            var output = PokemonGoEncryptNative.Util.Encrypt(Convert.FromBase64String(entry.input), Convert.FromBase64String(entry.iv));
+            if (Convert.ToBase64String(output) != entry.output)
+            {
+               failedTests.Add(index);
+            }
+            index++;
+         }
+
+         if (failedTests.Any())
+         {
+            Console.WriteLine("Stored tests failed: " + string.Join(", ", failedTests));
+         }
+         else
+         {
+            Console.WriteLine("All stored tests passed");
+         }
       }
 
       static void PerfTest()
